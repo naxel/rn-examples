@@ -48,29 +48,46 @@ class SampleApp extends Component {
         let rows = [];
         let that = this;
         let renderRow = function (num) {
-            let interpolatedSelectSizeAnimation = that._animatedValues[num].interpolate({
+            let interpolatedCircleSize = that._animatedValues[num].interpolate({
+                inputRange: [0, 100],
+                outputRange: [30, 15]
+            });
+            let interpolatedCircleSelectedSize = that._animatedValues[num].interpolate({
                 inputRange: [0, 100],
                 outputRange: [30, 45]
             });
-            let interpolatedSelectBorderWidthAnimation = that._animatedValues[num].interpolate({
-                inputRange: [99, 100],
-                outputRange: [0, 1]
+            let interpolatedLabelColor = that._animatedValues[num].interpolate({
+                inputRange: [0, 100],
+                outputRange: ["#666", '#c1dff9']
+            });
+            let interpolatedLabelFontSize = that._animatedValues[num].interpolate({
+                inputRange: [0, 100],
+                outputRange: [16, 20]
             });
             return (
                 <TouchableWithoutFeedback key={'li_' + num} onPress={() => {that._animateSelect(num)}}>
                     <View style={styles.navItem}>
-                        <View style={styles.navItemWrapper}>
-                            <Animated.View style={[styles.navItemSquare, {
-                height: interpolatedSelectSizeAnimation,
-                    width: interpolatedSelectSizeAnimation,
-                    borderWidth:interpolatedSelectBorderWidthAnimation
-            }]}/>
+                        <View style={styles.navItemCircleWrapper}>
+                            <Animated.View style={[styles.navItemCircleSelected, {
+                                height: interpolatedCircleSelectedSize,
+                                width: interpolatedCircleSelectedSize
+                                }]}>
+                                <Animated.View style={[styles.navItemCircle, {
+                                  height: interpolatedCircleSize,
+                                  width: interpolatedCircleSize
+                                  }]}/>
+                            </Animated.View>
                         </View>
-                        <Text>Label {num + 1}</Text>
-
+                        <Animated.Text style={{
+                            fontWeight: 'bold',
+                            color: interpolatedLabelColor,
+                            fontSize: interpolatedLabelFontSize
+                            }}>
+                            Label {num + 1}
+                        </Animated.Text>
                     </View>
                 </TouchableWithoutFeedback>
-            )
+            );
         };
 
         for (let i = 0; i < this.listLength; i++) {
@@ -92,19 +109,28 @@ class SampleApp extends Component {
 
 var styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#93b1c5'
     },
-    navItemWrapper: {
+    navItemCircleWrapper: {
         width: 50,
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 5
     },
-    navItemSquare: {
-        backgroundColor: "#6fbdfd",
-        marginRight: 5,
-        borderColor: '#4b6f95'
+    navItemCircle: {
+        backgroundColor: "#5e798b",
+        borderColor: '#4b6f95',
+        borderRadius: 50
+    },
+    navItemCircleSelected: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "rgba(0,0,0,0)",
+        borderColor: '#c1dff9',
+        borderWidth: 5,
+        borderRadius: 50
     },
     navItem: {
         flexDirection: 'row',

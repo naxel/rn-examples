@@ -91,10 +91,10 @@ class SampleApp extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333',
+    backgroundColor: '#333'
   },
   list: {
-    marginTop: 100,
+    marginTop: 30,
     marginLeft: 5
   },
   myInputStyle: {
@@ -103,7 +103,7 @@ var styles = StyleSheet.create({
     height: 70
   },
   textInput: {
-    height: 40,
+    height: 60,
     fontSize: 26,
     color: '#eee'
   }

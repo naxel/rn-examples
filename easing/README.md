@@ -1,2 +1,3 @@
-Easing example
+#Easing example
+
 ![Easing example](easing.gif)
